@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
     <title>Calculator</title>
 </head>
 <body>
@@ -16,40 +16,41 @@
     <div class="calc-cont">
         <div class="calc">
             <div class="display-cont">
-                <div class="display"><p class="display-text"></p></div>
-                <button class="clear"><p>clear</p></button>
+                <div class="display"></div>
+                <button class="clear"><p>clear</button>
             </div>
             <div class="keyboard-cont">
                 <div class="keyboard">
                     <div class="numbers">
-                        <button class="1"><p>1</p></button>
-                        <button class="2"><p>2</p></button>
-                        <button class="3"><p>3</p></button>
-                        <button class="4"><p>4</p></button>
-                        <button class="5"><p>5</p></button>
-                        <button class="6"><p>6</p></button>
-                        <button class="7"><p>7</p></button>
-                        <button class="8"><p>8</p></button>
-                        <button class="9"><p>9</p></button>
-                        <button class="0"><p>0</p></button>
-                        <button class="00"><p>00</p></button>
-                        <button class="dot"><p>.</p></button>
+                        <button class="one number">1</button>
+                        <button class="two number">2</button>
+                        <button class="three number">3</button>
+                        <button class="four number">4</button>
+                        <button class="five number">5</button>
+                        <button class="six number">6</button>
+                        <button class="seven number">7</button>
+                        <button class="eight number">8</button>
+                        <button class="nine number">9</button>
+                        <button class="zero number">0</button>
+                        <button class="dbl-zero number">00</button>
+                        <button class="dot">.</button>
                     </div>
-                    <div class="methods">
-                        <button class="percent"><p>%</p></button>
-                        <button class="multi"><p>x</p></button>
-                        <button class="divide"><p>/</p></button>
-                        <button class="sq"><p>square</p></button>
-                        <button class="sub"><p>-</p></button>
-                        <button class="equals"><p>=</p></button>
-                        <button class="add"><p>+</p></button>
+                    <div class="methods"> 
+                        <!-- Add entities to all buttons --> 
+                        <button class="percent method">	&#37;</button>
+                        <button class="multi method">x</button>
+                        <button class="divide method">/</button>
+                        <button class="sq method">square</button>
+                        <button class="sub method">-</button>
+                        <button class="equals">=</button>
+                        <button class="add method">&#43;</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <footer>
-        <p>GitHub</p>
+        GitHub
     </footer>
 </body>
 </html>
