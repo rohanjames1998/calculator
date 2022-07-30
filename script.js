@@ -82,11 +82,11 @@ function calc (input){
         switch(true){
             //resetting i so we loop the array from beginning after one method is complete in order to avoid missing some method.
             case input[i] == '+':       add(input[i - 1], input [i + 1], i); i = 0; break;
-            case input[i] == '-':       sub(input[i - 1], input [i + 1], i); i = 0; break;
-            case input[i] == '/':       divide(input[i - 1], input [i + 1], i); i = 0; break;
-            case input[i] == 'x':       multiply(input[i - 1], input [i + 1], i); i = 0; break; 
+            case input[i] == '−':       sub(input[i - 1], input [i + 1], i); i = 0; break;
+            case input[i] == '÷':       divide(input[i - 1], input [i + 1], i); i = 0; break;
+            case input[i] == '×':       multiply(input[i - 1], input [i + 1], i); i = 0; break; 
             case input[i] == '%':       percentage(input[i - 1], input [i + 1], i); i = 0; break; 
-            // case input[i] == 'sq':   square(input[i - 1], input [i + 1]);
+            case input[i] == '√':   square(input [i + 1], i);
         }
     }
     display.textContent = calculatedTotal;
@@ -113,8 +113,12 @@ function multiply(a, b, i) {
 }
 
 function percentage(a, b, i){
-     calculatedTotal = b * (a / 100) 
+     calculatedTotal = b * (a / 100);
      input.splice(i - 1, i + 2, calculatedTotal); 
 }
 
+function square(a, i){
+    calculatedTotal = Math.sqrt(a);
+    input.splice(i, i + 2, calculatedTotal)
+}
   
