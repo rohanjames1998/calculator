@@ -8,7 +8,7 @@
 }
 
 body {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -26,4 +26,26 @@ body {
     align-items: center;
     height: 75px;
     width: 100%;
+}
+
+.calc-cont {
+    background-color: lightcoral;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+
+
+
+
+
+
+
+
+
+footer {
+    margin-top: auto;
 }
