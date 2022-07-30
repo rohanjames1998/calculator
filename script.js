@@ -17,15 +17,24 @@ const allBtns  = keyboard.querySelectorAll('button');
 const numbers = document.querySelector('.numbers').querySelectorAll('button');
 const methods = document.querySelector('.methods').querySelectorAll('button');
 const display = document.querySelector('.display');
-const clearBtn = document.querySelector('.clear');
+const ceBtn = document.querySelector('.ce');
+const acBtn = document.querySelector('.ac');
 const equalsBtn = document.querySelector('.equals');
 let input = display.textContent;
  
-
-clearBtn.addEventListener('click', () => {
+//All clear button
+acBtn.addEventListener('click', () => {
     display.textContent = ""
     input = "";
     calculatedTotal = 0;
+});
+
+// Clear entry button. Removes last character put in by user.
+ceBtn.addEventListener('click', () => {
+    if(/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0, -2)
+    }
+    display.textContent= display.textContent.slice(0, -1);
 });
 
 
