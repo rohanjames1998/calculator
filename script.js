@@ -52,6 +52,7 @@ addGlobalEventListener('click', '.method', e => {
 
 //Getting user input to run methods
 equalsBtn.addEventListener('click', () => {
+    if (/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true) return;
     input = display.textContent.split(" ")
     calc(input);
 })
