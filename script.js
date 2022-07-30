@@ -67,9 +67,9 @@ equalsBtn.addEventListener('click', () => {
 // CALCULATION FUNCTIONS
 /*--------------------------------------*/
 
+//Our final number.
+let calculatedTotal = 0;
 function calc (input){
-    //Our final number.
-    let calculatedTotal = display.textContent;
     
     // converting string to number in input
     for(let j = 0; j < input.length; j++){

@@ -57,6 +57,14 @@ height: 150px;
 width: 100%;
 }
 
+.display {
+    border: solid 5px black;
+
+    height: 50px;
+    width: 90%;
+    text-align: right;
+}
+
 
 
 
