@@ -2,8 +2,6 @@
 // DISPLAY/BUTTON FUNCTIONS
 /*--------------------------------------*/
 
-//This array contains all user inputs to display
-
 //Event delegator(so that I don't have to add separate event listener to each button of same type).
 function addGlobalEventListener(type, selector, callback){
     document.addEventListener(type, e => {
@@ -22,6 +20,8 @@ const acBtn = document.querySelector('.ac');
 const equalsBtn = document.querySelector('.equals');
 let input = display.textContent;
  
+display.textContent = 0;
+
 //All clear button
 acBtn.addEventListener('click', () => {
     display.textContent = 0;
@@ -49,7 +49,7 @@ addGlobalEventListener('click', '.number', e => {
     display.textContent += e.target.textContent;
 })
 
-//Displaying methods to display only if the last character in the display is not a method and there is atleast one number on the display. Here we use displayContent.length - 2 because method character has space in front of it.
+//Displaying methods to display only if the last character in the display is not a method and there is at least one number on the display. Here we use displayContent.length - 2 because method character has space in front of it.
 addGlobalEventListener('click', '.method', e => {
     let displayContent = display.textContent;
     if(/[-+/x%]/.test(displayContent[displayContent.length - 2]) == false && /[0-9]+/g.test(displayContent) == true){
@@ -94,7 +94,7 @@ function calc (input){
 
 function add(a, b, i){
     calculatedTotal = a + b;
-    input.splice(i - 1, i + 2, calculatedTotal) // removing calculated numbers, methods and adding their result for further calculation.
+    input.splice(i - 1, i + 2, calculatedTotal) // removing calculated numbers && methods && adding their result for further calculation.
 }
 
 function sub(a, b, i){
