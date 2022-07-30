@@ -24,22 +24,28 @@ let input = display.textContent;
  
 //All clear button
 acBtn.addEventListener('click', () => {
-    display.textContent = ""
+    display.textContent = 0;
     input = "";
     calculatedTotal = 0;
 });
 
 // Clear entry button. Removes last character put in by user.
 ceBtn.addEventListener('click', () => {
-    if(/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true){
+    if(/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true){ // to remove methods with their spaces.
         display.textContent = display.textContent.slice(0, -2)
     }
-    display.textContent= display.textContent.slice(0, -1);
+    if (display.textContent.length >= 1) {
+        display.textContent = 0; //To add 0 when there is nothing.
+        return;
+    }
+    
+    display.textContent= display.textContent.slice(0, -1); // if both statements are false then we just remove the last character.
 });
 
 
 // Displaying all numbers that user enters to display.
 addGlobalEventListener('click', '.number', e => {
+    if(display.textContent == 0) display.textContent = '';
     display.textContent += e.target.textContent;
 })
 
@@ -52,7 +58,7 @@ addGlobalEventListener('click', '.method', e => {
 
 //Getting user input to run methods
 equalsBtn.addEventListener('click', () => {
-    if (/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true) return;
+    if (/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true) return; // To cover cases where user presses = after putting a method and before putting a number 
     input = display.textContent.split(" ")
     calc(input);
 })
@@ -60,17 +66,17 @@ equalsBtn.addEventListener('click', () => {
 /*--------------------------------------*/
 // CALCULATION FUNCTIONS
 /*--------------------------------------*/
-//Our final number.
-let calculatedTotal = 0;
 
 function calc (input){
+    //Our final number.
+    let calculatedTotal = display.textContent;
+    
     // converting string to number in input
     for(let j = 0; j < input.length; j++){
         if(/[0-9]+/g.test(input[j]) == true){
             input[j] =  parseInt(input[j]);
         }
     }
-    console.log(input)
 
     for(let i = 0; i < input.length; i++){
         switch(true){
@@ -88,35 +94,27 @@ function calc (input){
 
 function add(a, b, i){
     calculatedTotal = a + b;
-    input.splice(i - 1, i + 2, calculatedTotal) 
-    console.log(input, calculatedTotal);
+    input.splice(i - 1, i + 2, calculatedTotal) // removing calculated numbers, methods and adding their result for further calculation.
 }
 
 function sub(a, b, i){
     calculatedTotal = a - b;
     input.splice(i - 1, i + 2, calculatedTotal)
-    console.log(input, calculatedTotal);
 }
 
 function divide(a, b, i){
      calculatedTotal = a / b;
      input.splice(i - 1, i + 2,calculatedTotal);
-    console.log(input, calculatedTotal);
-
 }
 
 function multiply(a, b, i) {
     calculatedTotal = a * b;
     input.splice(i - 1, i + 2, calculatedTotal);
-    console.log(input, calculatedTotal);
-
-    // input.push(calculatedTotal);
 }
 
 function percentage(a, b, i){
      calculatedTotal = b * (a / 100) 
      input.splice(i - 1, i + 2, calculatedTotal); 
-    //  input.push(calculatedTotal);
 }
 
   
