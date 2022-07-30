@@ -58,11 +58,14 @@ width: 100%;
 }
 
 .display {
-    border: solid 5px black;
+    border: solid 2px black;
 
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     height: 50px;
-    width: 90%;
-    text-align: right;
+    width: 95%;
+    font-size: 46px;
 }
 
 
