@@ -54,7 +54,7 @@ equalsBtn.addEventListener('click', () => {
 let calculatedTotal = 0;
 
 function calc (input){
-    
+    // converting string to number in input
     for(let j = 0; j < input.length; j++){
         if(/[0-9]+/g.test(input[j]) == true){
             input[j] =  parseInt(input[j]);
@@ -64,36 +64,49 @@ function calc (input){
 
     for(let i = 0; i < input.length; i++){
         switch(true){
-            case input[i] == '+':       add(input[i - 1], input [i + 1]); break;
-            case input[i] == '-':       sub(input[i - 1], input [i + 1]); break;
-            case input[i] == '/':       divide(input[i - 1], input [i + 1]); break;
-            case input[i] == 'x':       multiply(input[i - 1], input [i + 1]); break;
-            case input[i] == '%':       percentage(input[i - 1], input [i + 1]); break;
+            case input[i] == '+':       add(input[i - 1], input [i + 1], i);break;
+            case input[i] == '-':       sub(input[i - 1], input [i + 1], i);break;
+            case input[i] == '/':       divide(input[i - 1], input [i + 1], i);break;
+            case input[i] == 'x':       multiply(input[i - 1], input [i + 1], i);break; 
+            case input[i] == '%':       percentage(input[i - 1], input [i + 1], i);break; 
             // case input[i] == 'sq':   square(input[i - 1], input [i + 1]);
         }
     }
     display.textContent = calculatedTotal;
 }
 
-function add(a, b){
-    console.log(typeof(a))
-    return calculatedTotal += a + b;
+function add(a, b, i){
+    calculatedTotal = a + b;
+    input.splice(i - 1, i + 2, calculatedTotal);
+    // input.unshift(calculatedTotal);
+    console.log(input, calculatedTotal);
 }
 
-function sub(a, b){
-    return  calculatedTotal += a - b;
+function sub(a, b, i){
+    calculatedTotal = a - b;
+    input.splice(i - 1, i + 2, calculatedTotal);
+    // input.push(calculatedTotal);
+    console.log(input, calculatedTotal);
 }
 
-function divide(a, b){
-    return calculatedTotal += a / b;
+function divide(a, b, i){
+     calculatedTotal = a / b;
+     input.splice(i - 1, i + 2, calculatedTotal);
+    // input.push(calculatedTotal);
 }
 
-function multiply(a, b) {
-    return calculatedTotal += a * b;
+function multiply(a, b, i) {
+    calculatedTotal = a * b;
+    input.splice(i - 1, i + 2, calculatedTotal);
+    console.log(input, calculatedTotal);
+
+    // input.push(calculatedTotal);
 }
 
-function percentage(a, b){
-    return calculatedTotal += (b / a) * 100;
+function percentage(a, b, i){
+     calculatedTotal = b * (a / 100) 
+     input.splice(i - 1, i + 2, calculatedTotal);
+    //  input.push(calculatedTotal);
 }
 
   
