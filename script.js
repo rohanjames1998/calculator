@@ -64,11 +64,12 @@ function calc (input){
 
     for(let i = 0; i < input.length; i++){
         switch(true){
-            case input[i] == '+':       add(input[i - 1], input [i + 1], i);break;
-            case input[i] == '-':       sub(input[i - 1], input [i + 1], i);break;
-            case input[i] == '/':       divide(input[i - 1], input [i + 1], i);break;
-            case input[i] == 'x':       multiply(input[i - 1], input [i + 1], i);break; 
-            case input[i] == '%':       percentage(input[i - 1], input [i + 1], i);break; 
+            //resetting i so we loop the array from beginning after one method is complete in order to avoid missing some method.
+            case input[i] == '+':       add(input[i - 1], input [i + 1], i); i = 0; break;
+            case input[i] == '-':       sub(input[i - 1], input [i + 1], i); i = 0; break;
+            case input[i] == '/':       divide(input[i - 1], input [i + 1], i); i = 0; break;
+            case input[i] == 'x':       multiply(input[i - 1], input [i + 1], i); i = 0; break; 
+            case input[i] == '%':       percentage(input[i - 1], input [i + 1], i); i = 0; break; 
             // case input[i] == 'sq':   square(input[i - 1], input [i + 1]);
         }
     }
@@ -77,22 +78,21 @@ function calc (input){
 
 function add(a, b, i){
     calculatedTotal = a + b;
-    input.splice(i - 1, i + 2, calculatedTotal);
-    // input.unshift(calculatedTotal);
+    input.splice(i - 1, i + 2, calculatedTotal) 
     console.log(input, calculatedTotal);
 }
 
 function sub(a, b, i){
     calculatedTotal = a - b;
-    input.splice(i - 1, i + 2, calculatedTotal);
-    // input.push(calculatedTotal);
+    input.splice(i - 1, i + 2, calculatedTotal)
     console.log(input, calculatedTotal);
 }
 
 function divide(a, b, i){
      calculatedTotal = a / b;
-     input.splice(i - 1, i + 2, calculatedTotal);
-    // input.push(calculatedTotal);
+     input.splice(i - 1, i + 2,calculatedTotal);
+    console.log(input, calculatedTotal);
+
 }
 
 function multiply(a, b, i) {
@@ -105,7 +105,7 @@ function multiply(a, b, i) {
 
 function percentage(a, b, i){
      calculatedTotal = b * (a / 100) 
-     input.splice(i - 1, i + 2, calculatedTotal);
+     input.splice(i - 1, i + 2, calculatedTotal); 
     //  input.push(calculatedTotal);
 }
 
