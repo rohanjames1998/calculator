@@ -46,20 +46,45 @@ addGlobalEventListener('click', '.number', e => {
 })
 
 //Displaying methods to display only if the last character in the display is not a method and there is at least one number on the display. Here we use displayContent.length - 2 because method character has space in front of it.
-addGlobalEventListener('click', '.method', e => {
+addGlobalEventListener('click', '.method', (e) => {
+    //To avoid adding a method in front of 0 
     if(display.textContent == 0) display.textContent = ''; 
+
+    // Changing method if user presses methods twice 
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0 , -2);
+        display.textContent += ` ${e.target.textContent} `
+         return;
+    }
+    // Making sure user only adds one method after one number
     if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false && /[0-9]+/g.test(display.textContent) == true){
-    display.textContent += ` ${e.target.textContent} `}
+        display.textContent += ` ${e.target.textContent} `}
 });
+
+
+
+
+
+//Decimal
+addGlobalEventListener('click', '.dot', e => {
+    if (/[.]/g.test(display.textContent) == true) return;
+    if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2])) return;
+    display.textContent += '.';
+})
 
 //Getting user input to run methods
 equalsBtn.addEventListener('click', () => {
     if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true) return; // To cover cases where user presses = after putting a method and before putting a number 
-    input = display.textContent.split(" ")
+    input = display.textContent.split(" ");
+    //removing empty array elements.
+    input = input.filter(n => n);
+    console.log(input);
     calc(input);
 })
 
+/*---------------------------------*/
 // KEYBOARD INPUT EVENT LISTENERS
+/*---------------------------------*/
 
 // For Numbers
 
@@ -70,36 +95,67 @@ document.addEventListener('keydown', (e) => {
 
 // For Methods
 
+//Addition
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
+    //Changing methods if user presses a different method
+    if(e.key == '+' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0 , -2);
+        display.textContent += ` + `
+         return;
+      }
     if (e.key == '+' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
         display.textContent += ' + ';
     }
 })
 
+//Subtraction
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
+    if(e.key == '-' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0 , -2);
+        display.textContent += ` − `
+         return;
+      }
     if (e.key == '-' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
         display.textContent += ' − ';
     }
 })
 
+//Division
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
+    if(e.key == '/' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0 , -2);
+        display.textContent += ` ÷ `
+         return;
+      }
     if (e.key == '/' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
         display.textContent += ' ÷ ';
     }
 })
 
+//Multiplication
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
+    if(e.key == '*' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0 , -2);
+        display.textContent += ` × `
+         return;
+      }
     if (e.key == '*' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
         display.textContent += ' × ';
     }
 })
 
+//Percentage
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
+    if(e.key == '%' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+        display.textContent = display.textContent.slice(0 , -2);
+        display.textContent += ` % `
+         return;
+      }
     if (e.key == '%' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
         display.textContent += ' % ';
     }
@@ -109,7 +165,8 @@ document.addEventListener('keydown', (e) =>{
 document.addEventListener('keydown', (e) => {
     if (e.key == '=' || e.key == 'Enter'){
     if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true) return;
-    input = display.textContent.split(" ")
+    input = display.textContent.split(" ");
+    input = input.filter(n => n);
     calc(input);
     }
 })
@@ -136,6 +193,15 @@ document.addEventListener('keydown', (e) => {
         display.textContent = 0;
         input = "";
         calculatedTotal = 0;
+    }
+})
+
+// For dot/decimal
+document.addEventListener('keydown', (e) => {
+    if (e.key == '.'){
+        if (/[.]/g.test(display.textContent) == true) return;
+        if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2])) return;
+        display.textContent += '.';
     }
 })
 
