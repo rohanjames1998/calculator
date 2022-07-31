@@ -10,10 +10,6 @@ function addGlobalEventListener(type, selector, callback){
 }
 
 
-const keyboard = document.querySelector('.keyboard');
-const allBtns  = keyboard.querySelectorAll('button');
-const numbers = document.querySelector('.numbers').querySelectorAll('button');
-const methods = document.querySelector('.methods').querySelectorAll('button');
 const display = document.querySelector('.display');
 const ceBtn = document.querySelector('.ce');
 const acBtn = document.querySelector('.ac');
@@ -31,15 +27,15 @@ acBtn.addEventListener('click', () => {
 
 // Clear entry button. Removes last character put in by user.
 ceBtn.addEventListener('click', () => {
-    if(/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true){ // to remove methods with their spaces.
+    if (display.textContent.length <= 1) {
+        return display.textContent = 0; //To add 0 when there is nothing.
+        
+    }
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){ // to remove methods with their spaces.
         display.textContent = display.textContent.slice(0, -2)
     }
-    if (display.textContent.length >= 1) {
-        display.textContent = 0; //To add 0 when there is nothing.
-        return;
-    }
     
-    display.textContent= display.textContent.slice(0, -1); // if both statements are false then we just remove the last character.
+    display.textContent = display.textContent.slice(0, -1); // if both statements are false then we just remove the last character.
 });
 
 
@@ -51,17 +47,99 @@ addGlobalEventListener('click', '.number', e => {
 
 //Displaying methods to display only if the last character in the display is not a method and there is at least one number on the display. Here we use displayContent.length - 2 because method character has space in front of it.
 addGlobalEventListener('click', '.method', e => {
-    let displayContent = display.textContent;
-    if(/[-+/x%]/.test(displayContent[displayContent.length - 2]) == false && /[0-9]+/g.test(displayContent) == true){
+    if(display.textContent == 0) display.textContent = ''; 
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false && /[0-9]+/g.test(display.textContent) == true){
     display.textContent += ` ${e.target.textContent} `}
 });
 
 //Getting user input to run methods
 equalsBtn.addEventListener('click', () => {
-    if (/[-+/x%]/.test(display.textContent[display.textContent.length - 2]) == true) return; // To cover cases where user presses = after putting a method and before putting a number 
+    if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true) return; // To cover cases where user presses = after putting a method and before putting a number 
     input = display.textContent.split(" ")
     calc(input);
 })
+
+// KEYBOARD INPUT EVENT LISTENERS
+
+// For Numbers
+
+document.addEventListener('keydown', (e) => {
+    if(display.textContent == 0) display.textContent = '';
+    if(/[0-9]/g.test(e.key)) display.textContent += e.key; 
+})
+
+// For Methods
+
+document.addEventListener('keydown', (e) =>{
+    if(display.textContent == 0) display.textContent = '';
+    if (e.key == '+' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
+        display.textContent += ' + ';
+    }
+})
+
+document.addEventListener('keydown', (e) =>{
+    if(display.textContent == 0) display.textContent = '';
+    if (e.key == '-' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
+        display.textContent += ' − ';
+    }
+})
+
+document.addEventListener('keydown', (e) =>{
+    if(display.textContent == 0) display.textContent = '';
+    if (e.key == '/' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
+        display.textContent += ' ÷ ';
+    }
+})
+
+document.addEventListener('keydown', (e) =>{
+    if(display.textContent == 0) display.textContent = '';
+    if (e.key == '*' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
+        display.textContent += ' × ';
+    }
+})
+
+document.addEventListener('keydown', (e) =>{
+    if(display.textContent == 0) display.textContent = '';
+    if (e.key == '%' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
+        display.textContent += ' % ';
+    }
+})
+
+// For equals button on keyboard.
+document.addEventListener('keydown', (e) => {
+    if (e.key == '=' || e.key == 'Enter'){
+    if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true) return;
+    input = display.textContent.split(" ")
+    calc(input);
+    }
+})
+
+//For backspace (clear entry function)
+document.addEventListener('keydown', (e) => {
+if (e.key == 'Backspace'){
+    if (display.textContent.length <= 1) {
+        return display.textContent = 0;
+    }
+
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){ 
+        display.textContent = display.textContent.slice(0, -2)
+    }
+    
+    display.textContent = display.textContent.slice(0, -1); 
+
+}
+} )
+
+// For escape (all clear function)
+document.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape'){
+        display.textContent = 0;
+        input = "";
+        calculatedTotal = 0;
+    }
+})
+
+
 
 /*--------------------------------------*/
 // CALCULATION FUNCTIONS
