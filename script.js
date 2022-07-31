@@ -18,6 +18,7 @@ let input = display.textContent;
  
 display.textContent = 0;
 
+
 //All clear button
 acBtn.addEventListener('click', () => {
     display.textContent = 0;
@@ -205,6 +206,16 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
+document.addEventListener('click', () => {
+    if(display.textContent.length > 12){
+        display.textContent = display.textContent.substring(0, 12);
+}})
+
+document.addEventListener('keydown', () => {
+    if(display.textContent.length > 12){
+        display.textContent = display.textContent.substring(0, 12);
+}})
+
 
 
 /*--------------------------------------*/
@@ -233,7 +244,8 @@ function calc (input){
             case input[i] == '√':   square(input [i + 1], i);
         }
     }
-    display.textContent = calculatedTotal;
+    display.textContent = calculatedTotal
+    
 }
 
 function add(a, b, i){
