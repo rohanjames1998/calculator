@@ -64,14 +64,21 @@ addGlobalEventListener('click', '.method', (e) => {
 });
 
 
-
+//This function makes sure that user can only put one decimal point in each number.
+function decimalChecker(dispCont){
+    let dispContArr = dispCont.split(" ");
+    console.log(dispContArr);
+    for (let i = 0; i < dispContArr.length; i++){
+        if(/[−+÷×%√]/.test(dispContArr[i])) i++; // if it is a method move to next element
+        else if(dispContArr[i].includes('.')) i++;  // if it has a decimal point move to next item
+        else display.textContent += '.';
+    }
+}
 
 
 //Decimal
 addGlobalEventListener('click', '.dot', e => {
-    if (/[.]/g.test(display.textContent) == true) return;
-    if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2])) return;
-    display.textContent += '.';
+    decimalChecker(display.textContent);
 })
 
 //Getting user input to run methods
@@ -107,9 +114,8 @@ document.addEventListener('keydown', (e) =>{
         display.textContent += ` + `
          return;
       }
-    if (e.key == '+' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
         display.textContent += ' + ';
-    }
+    
 })
 
 //Subtraction
@@ -120,9 +126,6 @@ document.addEventListener('keydown', (e) =>{
         display.textContent += ` − `
          return;
       }
-    if (e.key == '-' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
-        display.textContent += ' − ';
-    }
 })
 
 //Division
@@ -133,9 +136,6 @@ document.addEventListener('keydown', (e) =>{
         display.textContent += ` ÷ `
          return;
       }
-    if (e.key == '/' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
-        display.textContent += ' ÷ ';
-    }
 })
 
 //Multiplication
@@ -146,9 +146,6 @@ document.addEventListener('keydown', (e) =>{
         display.textContent += ` × `
          return;
       }
-    if (e.key == '*' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
-        display.textContent += ' × ';
-    }
 })
 
 //Percentage
@@ -159,9 +156,6 @@ document.addEventListener('keydown', (e) =>{
         display.textContent += ` % `
          return;
       }
-    if (e.key == '%' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == false){
-        display.textContent += ' % ';
-    }
 })
 
 // For equals button on keyboard.
@@ -169,7 +163,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key == '=' || e.key == 'Enter'){
     if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true) return;
     input = display.textContent.split(" ");
-    input = input.filter(n => n);
+    input = input.filter(n => n); // removing empty elements from input
     console.log(input);
     calc(input);
     }
@@ -202,11 +196,7 @@ document.addEventListener('keydown', (e) => {
 
 // For dot/decimal
 document.addEventListener('keydown', (e) => {
-    if (e.key == '.'){
-        if (/[.]/g.test(display.textContent) == true) return;
-        if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2])) return;
-        display.textContent += '.';
-    }
+    if (e.key == '.') decimalChecker(display.textContent);
 })
 
 document.addEventListener('click', () => {
@@ -253,7 +243,7 @@ function calc (input){
             case input[i] == '÷':       divide(input[i - 1], input [i + 1], i); i = 0; break;
             case input[i] == '×':       multiply(input[i - 1], input [i + 1], i); i = 0; break; 
             case input[i] == '%':       percentage(input[i - 1], input [i + 1], i); i = 0; break; 
-            case input[i] == '√':   square(input [i + 1], i);
+            case input[i] == '√':       square(input [i + 1], i);
         }
     }
     display.textContent = calculatedTotal
