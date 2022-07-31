@@ -10,6 +10,7 @@ function addGlobalEventListener(type, selector, callback){
 }
 
 
+
 const display = document.querySelector('.display');
 const ceBtn = document.querySelector('.ce');
 const acBtn = document.querySelector('.ac');
@@ -79,6 +80,7 @@ equalsBtn.addEventListener('click', () => {
     input = display.textContent.split(" ");
     //removing empty array elements.
     input = input.filter(n => n);
+
     console.log(input);
     calc(input);
 })
@@ -91,7 +93,7 @@ equalsBtn.addEventListener('click', () => {
 
 document.addEventListener('keydown', (e) => {
     if(display.textContent == 0) display.textContent = '';
-    if(/[0-9]/g.test(e.key)) display.textContent += e.key; 
+    if(/^[0-9]/.test(e.key)) display.textContent += e.key; 
 })
 
 // For Methods
@@ -168,6 +170,7 @@ document.addEventListener('keydown', (e) => {
     if (/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true) return;
     input = display.textContent.split(" ");
     input = input.filter(n => n);
+    console.log(input);
     calc(input);
     }
 })
@@ -225,13 +228,22 @@ document.addEventListener('keydown', () => {
 //Our final number.
 let calculatedTotal = 0;
 function calc (input){
+
     
     // converting string to number in input
+    // first check is for decimals next is for normal numbers.
     for(let j = 0; j < input.length; j++){
-        if(/[0-9]+/g.test(input[j]) == true){
+        if(input[j].includes('.')){
+            input[j] = parseFloat(input[j]);
+            console.log(typeof(input[j]), input[j], input);
+        }
+        
+        else if(/[0-9]+/g.test(input[j]) == true ){
             input[j] =  parseInt(input[j]);
         }
     }
+
+
 
     for(let i = 0; i < input.length; i++){
         switch(true){
@@ -249,7 +261,9 @@ function calc (input){
 }
 
 function add(a, b, i){
+    console.log(a, b);
     calculatedTotal = a + b;
+    console.log(input)
     input.splice(i - 1, i + 2, calculatedTotal) // removing calculated numbers && methods && adding their result for further calculation.
 }
 
