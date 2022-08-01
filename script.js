@@ -109,53 +109,67 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
     //Changing methods if user presses a different method
-    if(e.key == '+' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+    if(e.key == '+'){
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
         display.textContent = display.textContent.slice(0 , -2);
         display.textContent += ` + `
          return;
       }
         display.textContent += ' + ';
+    }
     
 })
 
 //Subtraction
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
-    if(e.key == '-' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+    if (e.key == '-'){
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
         display.textContent = display.textContent.slice(0 , -2);
-        display.textContent += ` − `
+        display.textContent += ` − `;
          return;
       }
+      display.textContent += ` − `
+    }
 })
 
 //Division
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
-    if(e.key == '/' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+    if (e.key == '/'){
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
         display.textContent = display.textContent.slice(0 , -2);
         display.textContent += ` ÷ `
          return;
       }
+      display.textContent += ` ÷ `
+    }
 })
 
 //Multiplication
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
-    if(e.key == '*' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+    if(e.key == '*'){
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
         display.textContent = display.textContent.slice(0 , -2);
         display.textContent += ` × `
          return;
       }
+      display.textContent += ` × `
+    }
 })
 
 //Percentage
 document.addEventListener('keydown', (e) =>{
     if(display.textContent == 0) display.textContent = '';
-    if(e.key == '%' && /[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
+    if(e.key == '%'){
+    if(/[−+÷×%√]/.test(display.textContent[display.textContent.length - 2]) == true){
         display.textContent = display.textContent.slice(0 , -2);
         display.textContent += ` % `
          return;
       }
+      display.textContent += ` % `
+    }
 })
 
 // For equals button on keyboard.
@@ -219,7 +233,10 @@ document.addEventListener('keydown', () => {
 let calculatedTotal = 0;
 function calc (input){
 
-    
+    // if (/[−+÷×%√]/.test(input[input.length-1]) == true){
+    //     input.splice(input.length -1);
+    //     console.log(input);
+    // }
     // converting string to number in input
     // first check is for decimals next is for normal numbers.
     for(let j = 0; j < input.length; j++){
